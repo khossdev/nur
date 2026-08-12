@@ -157,13 +157,13 @@ private fun GradientHeader(
 private fun ComingSoonLightPreview() {
     MySalatTheme(darkTheme = false) {
         ComingSoonScreen(
-            title = "Qibla",
-            subtitle = "Trouvez la direction de la Kaaba où que vous soyez.",
-            icon = AppIcons.Qibla,
+            title = "Coran",
+            subtitle = "Lisez, écoutez et mémorisez, sourate par sourate.",
+            icon = AppIcons.Quran,
             highlights = listOf(
-                "Boussole calibrée en temps réel",
-                "Repère visuel de la Kaaba",
-                "Fonctionne hors connexion"
+                "Texte arabe et traduction française",
+                "Reprise à votre dernière lecture",
+                "Récitations audio hors connexion"
             ),
             modifier = Modifier.background(MaterialTheme.colorScheme.background),
             contentPadding = PaddingValues(vertical = Spacing.md)

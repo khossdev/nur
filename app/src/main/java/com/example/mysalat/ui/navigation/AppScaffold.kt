@@ -29,11 +29,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mysalat.PrayerViewModel
+import com.example.mysalat.QiblaViewModel
 import com.example.mysalat.ui.history.HistoryScreen
 import com.example.mysalat.ui.home.HomeScreen
 import com.example.mysalat.ui.icons.AppIcons
 import com.example.mysalat.ui.placeholder.ComingSoonScreen
 import com.example.mysalat.ui.profile.ProfileScreen
+import com.example.mysalat.ui.qibla.QiblaScreen
 import com.example.mysalat.ui.theme.Motion
 import com.example.mysalat.ui.theme.Spacing
 
@@ -41,8 +43,8 @@ import com.example.mysalat.ui.theme.Spacing
 private val BottomBarHeight = 96.dp
 
 /**
- * App shell: holds the single [PrayerViewModel], swaps destinations with a
- * directional slide, and floats the tab bar above the content.
+ * App shell: holds [PrayerViewModel] (and [QiblaViewModel] on the Qibla tab),
+ * swaps destinations with a directional slide, and floats the tab bar.
  */
 @Composable
 fun AppScaffold(
@@ -122,17 +124,16 @@ fun AppScaffold(
                     contentPadding = contentPadding
                 )
 
-                AppDestination.Qibla -> ComingSoonScreen(
-                    title = "Qibla",
-                    subtitle = "Trouvez la direction de la Kaaba où que vous soyez.",
-                    icon = AppIcons.Qibla,
-                    highlights = listOf(
-                        "Boussole calibrée en temps réel",
-                        "Repère visuel de la Kaaba",
-                        "Fonctionne sans connexion"
-                    ),
-                    contentPadding = contentPadding
-                )
+                AppDestination.Qibla -> {
+                    val qiblaViewModel: QiblaViewModel = viewModel()
+                    val qiblaState by qiblaViewModel.uiState.collectAsStateWithLifecycle()
+                    QiblaScreen(
+                        state = qiblaState,
+                        onStart = qiblaViewModel::start,
+                        onStop = qiblaViewModel::stop,
+                        contentPadding = contentPadding
+                    )
+                }
 
                 AppDestination.History -> HistoryScreen(
                     summary = summary,
